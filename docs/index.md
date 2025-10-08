@@ -3,8 +3,9 @@
 layout: home
 
 hero:
-  name: Electricilies
-  tagline: Documentation for Electricilies
+  name: TMS
+  tagline: Documentation for Tourist Management System
+  image: /logo.png
   actions:
     - theme: brand
       text: Overview
