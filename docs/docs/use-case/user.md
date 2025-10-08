@@ -103,3 +103,29 @@ UC04 <.. UC07 : <<extend>>
 ```
 
 <!-- diagram id="use-case-user-account-system" -->
+
+## Sample diagram — workflow test
+
+```plantuml
+@startuml
+left to right direction
+
+actor Tester
+actor CI as "CI Workflow"
+
+rectangle "Workflow" {
+  usecase UC01 as "Push Code"
+  usecase UC02 as "Run CI"
+  usecase UC03 as "Build Artifacts"
+  usecase UC04 as "Publish Artifacts"
+}
+
+Tester -- UC01
+UC01 ..> UC02 : <<include>>
+UC02 --> UC03
+UC03 --> UC04
+
+@enduml
+```
+
+<!-- diagram id="use-case-sample-workflow-test" -->

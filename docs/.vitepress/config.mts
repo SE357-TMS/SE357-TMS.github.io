@@ -54,6 +54,10 @@ export default defineConfig({
 								text: "Admin",
 								link: "/docs/use-case/admin",
 							},
+							{
+								text: "Sample",
+								link: "docs/use-case/sample-workflow",
+							},
 						],
 					},
 					{
