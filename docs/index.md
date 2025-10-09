@@ -5,7 +5,7 @@ layout: home
 hero:
   name: TMS
   tagline: Documentation for Tourist Management System
-  image: /logo.png
+  image: ./logo.png
   actions:
     - theme: brand
       text: Overview

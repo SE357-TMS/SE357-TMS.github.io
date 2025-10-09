@@ -14,7 +14,7 @@ rectangle "Repository Workflow" {
   usecase UC02 as "Trigger CI"
   usecase UC03 as "Run Tests"
   usecase UC04 as "Build Artifacts"
-  usecase UC05 as "Deploy"
+  usecase UC05 as "Deploy Test Environment"
 }
 
 Tester -- UC01
