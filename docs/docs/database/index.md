@@ -1,250 +1,140 @@
-# Database
-
+#database
 ```d2
 vars: {
-  d2-config: {
-    layout-engine: elk
-    theme-id: 3
-  }
+	d2-config: {
+		layout-engine: elk
+		theme-id: 3
+	}
 }
 
 **.shape: sql_table
 explanation.shape: rectangle
 
-users: {
-  id: uuid {constraint: PK}
-  avatar: varchar
-  first_name: varchar
-  last_name: varchar
-  username: varchar {constraint: UNQ}
-  email: varchar {constraint: UNQ}
-  birth_of_day: varchar
-  phone_number: varchar
-  created_at: timestamp
+User: {
+	id: int {constraint: PK}
+	username: varchar {constraint: UNQ}
+	password: varchar
+	is_lock: boolean
+	full_name: varchar
+	email: varchar {constraint: UNQ}
+	phone_number: varchar
+	address: varchar
+	birthday: date
+	gender: enum('M','F','O')
+	role: enum('CUSTOMER','STAFF','ADMIN')
 }
 
-addresses: {
-  id: int {constraint: PK}
-  address_line: varchar
-  city: varchar
-  country: varchar
-  phone_number: varchar
-  created_at: timestamp
-  user_id: uuid {constraint: FK}
+Category: {
+	id: int {constraint: PK}
+	name: varchar
+	status: enum('ACTIVE','INACTIVE','DELETED')
 }
 
-categories: {
-  id: int {constraint: PK}
-  description: varchar
-  created_at: timestamp
-  deleted_at: timestamp
+Attraction: {
+	id: int {constraint: PK}
+	name: varchar
+	description: text
+	location: varchar
+	category_id: int {constraint: FK}
+	status: enum('ACTIVE','INACTIVE','DELETED')
 }
 
-brands: {
-  id: int {constraint: PK}
-  value: varchar {constraint: UNQ}
+Route: {
+	id: int {constraint: PK}
+	name: varchar
+	start_location: varchar
+	end_location: varchar
+	duration_days: int
+	image: varchar
+	status: enum('OPEN','ONGOING','CLOSED')
 }
 
-products: {
-  id: int {constraint: PK}
-  name: varchar
-  description: varchar
-  created_at: timestamp
-  updated_at: timestamp
-  deleted_at: timestamp
-  branch_id: int {constraint: FK}
+Route_Attraction: {
+	id: int {constraint: PK}
+	route_id: int {constraint: FK}
+	attraction_id: int {constraint: FK}
+	day: int
+	order_in_day: int
+	activity_description: text
 }
 
-product_analytics: {
-  id: int {constraint: PK}
-  views_count: int
-  purchase_count: int
-  trending_score: float
-  product_id: int {constraint: [FK, UNQ]}
+Trip: {
+	id: int {constraint: PK}
+	route_id: int {constraint: FK}
+	departure_date: date
+	return_date: date
+	price: decimal
+	total_seats: int
+	booked_seats: int
+	pick_up_time: time
+	pick_up_location: varchar
+	status: enum('SCHEDULED','ONGOING','FINISHED','CANCELED')
 }
 
-product_images: {
-  id: int {constraint: PK}
-  url: varchar
-  alt_text: varchar
-  created_at: timestamp
-  is_primary: boolean
-  product_id: int {constraint: FK}
-  product_variant_id: int {constraint: [FK, nullable]}
+Cart: {
+	id: int {constraint: PK}
+	user_id: int {constraint: FK}
 }
 
-reviews: {
-  id: int {constraint: PK}
-  rating: int {constraint: "0 &lt; x &lt; 5"}
-  content: varchar
-  image_url: varchar
-  created_at: timestamp
-  updated_at: timestamp
-  deleted_at: timestamp
-  user_id: uuid {constraint: FK}
-  product_id: int {constraint: FK}
+Cart_Item: {
+	id: int {constraint: PK}
+	cart_id: int {constraint: FK}
+	trip_id: int {constraint: FK}
+	quantity: int
+	price: decimal
 }
 
-product_categories: {
-  product_id: int {constraint: [PK, FK]}
-  category_id: int {constraint: [PK, FK]}
+Favorite_Tour: {
+	user_id: int {constraint: [PK, FK]}
+	route_id: int {constraint: [PK, FK]}
 }
 
-product_variants: {
-  id: int {constraint: PK}
-  sku: varchar {constraint: UNQ}
-  price: decimal
-  quantity: int
-  created_at: timestamp
-  deleted_at: timestamp
-  product_id: int {constraint: FK}
+Tour_Booking: {
+	id: int {constraint: PK}
+	trip_id: int {constraint: FK}
+	user_id: int {constraint: FK}
+	seats_booked: int
+	total_price: decimal
+	status: enum('PENDING','CONFIRMED','CANCELED','COMPLETED')
 }
 
-option_values: {
-  id: int {constraint: PK}
-  value: varchar
-  option_id: int {constraint: FK}
+Tour_Booking_Detail: {
+	id: int {constraint: PK}
+	booking_id: int {constraint: FK}
+	no_adults: int
+	no_children: int
 }
 
-product_variant_option_values: {
-  product_variant_id: int {constraint: [PK, FK]}
-  option_value_id: int {constraint: [PK, FK]}
+Booking_Traveler: {
+	id: int {constraint: PK}
+	booking_id: int {constraint: FK}
+	full_name: varchar
+	gender: enum('M','F','O')
+	date_of_birth: date
+	identity_doc: varchar
 }
 
-options: {
-  id: int {constraint: PK}
-  name: varchar {constraint: UNQ}
+Invoice: {
+	id: int {constraint: PK}
+	booking_id: int {constraint: FK}
+	total_amount: decimal
+	payment_status: enum('UNPAID','PAID','REFUNDED')
+	payment_method: varchar
 }
 
-carts: {
-  id: int {constraint: PK}
-  user_id: uuid {constraint: [UNQ, FK]}
-  updated_at: timestamp
-}
+Attraction.category_id -> Category.id
+Route_Attraction.route_id -> Route.id
+Route_Attraction.attraction_id -> Attraction.id
+Trip.route_id -> Route.id
+Cart.user_id -> User.id
+Cart_Item.cart_id -> Cart.id
+Cart_Item.trip_id -> Trip.id
+Favorite_Tour.user_id -> User.id
+Favorite_Tour.route_id -> Route.id
+Tour_Booking.trip_id -> Trip.id
+Tour_Booking.user_id -> User.id
+Tour_Booking_Detail.booking_id -> Tour_Booking.id
+Booking_Traveler.booking_id -> Tour_Booking.id
+Invoice.booking_id -> Tour_Booking.id
 
-cart_items: {
-  id: int {constraint: PK}
-  quantity: int
-  cart_id: int {constraint: FK}
-  product_id: int {constraint: FK}
-  product_variant_id: int {constraint: FK}
-}
-
-order_statuses: {
-  id: int {constraint: PK}
-  value: varchar {constraint: UNQ}
-}
-
-payment_methods: {
-  id: int {constraint: PK}
-  value: varchar {constraint: UNQ}
-}
-
-payment_statuses: {
-  id: int {constraint: PK}
-  value: varchar {constraint: UNQ}
-}
-
-payment_providers: {
-  id: int {constraint: PK}
-  value: varchar {constraint: UNQ}
-}
-
-payment_details: {
-  id: int {constraint: PK}
-  amount: decimal
-  updated_at: timestamp
-  payment_method_id: int {constraint: FK}
-  payment_status_id: int {constraint: FK}
-  payment_provider_id: int {constraint: FK}
-}
-
-orders: {
-  id: int {constraint: PK}
-  created_at: timestamp
-  updated_at: timestamp
-  user_id: uuid {constraint: FK}
-  order_status_id: int {constraint: FK}
-  payment_detail_id: int {constraint: FK}
-}
-
-order_items: {
-  id: int {constraint: PK}
-  quantity: int
-  order_id: int {constraint: FK}
-  product_id: int {constraint: FK}
-  product_variant_id: int {constraint: FK}
-}
-
-return_requests: {
-  id: int {constraint: PK}
-  reason: varchar
-  created_at: timestamp
-  updated_at: timestamp
-  status_id: int {constraint: FK}
-  user_id: uuid {constraint: FK}
-  order_item_id: int {constraint: FK}
-}
-
-return_request_statuses: {
-  id: int {constraint: PK}
-  value: varchar {constraint: UNQ}
-}
-
-refunds: {
-  id: int {constraint: PK}
-  created_at: timestamp
-  updated_at: timestamp
-  status_id: int {constraint: FK}
-  payment_detail_id: int {constraint: FK}
-  return_request_id: int {constraint: FK}
-}
-
-refund_statuses: {
-  id: int {constraint: PK}
-  value: varchar {constraint: UNQ}
-}
-
-addresses.user_id -> users.id
-product_categories.product_id -> products.id
-product_categories.category_id -> categories.id
-product_variants.product_id -> products.id
-product_variant_option_values.product_variant_id -> product_variants.id
-product_variant_option_values.option_value_id -> option_values.id
-option_values.option_id -> options.id
-products.brand_id -> brands.id
-carts.user_id -> users.id
-cart_items.cart_id -> carts.id
-cart_items.product_variant_id -> product_variants.id
-cart_items.product_id -> products.id
-payment_details.payment_provider_id -> payment_providers.id
-payment_details.payment_status_id -> payment_statuses.id
-payment_details.payment_provider_id -> payment_providers.id
-payment_details.payment_method_id -> payment_methods.id
-orders.user_id -> users.id
-orders.payment_detail_id -> payment_details.id
-orders.order_status_id -> order_statuses.id
-order_items.order_id -> orders.id
-order_items.product_id -> products.id
-order_items.product_variant_id -> product_variants.id
-reviews.product_id -> products.id
-reviews.user_id -> users.id
-product_analytics.product_id -> products.id
-product_images.product_id -> products.id
-product_images.product_variant_id -> product_variants.id
-return_requests.user_id -> users.id
-return_requests.status_id -> return_request_statuses.id
-return_requests.order_item_id -> order_items.id
-refunds.status_id -> refund_statuses.id
-refunds.return_request_id -> return_requests.id
-refunds.payment_detail_id -> payment_details.id
-
-explanation: |md
-    # Note
-    - All FK are NOT NULL by default.
-    - Only FK marked with {constraint: [FK, nullable]} are nullable.
-  Only FK marked with {constraint: [FK, nullable]} are nullable.
-|
 ```
-
-<!-- diagram id="database" -->
