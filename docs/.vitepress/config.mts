@@ -433,6 +433,28 @@ export default defineConfig({
 								],
 							},
 							{
+								text: "Manage Personal Booking",
+								collapsed: true,
+								items: [
+									{
+										text: "Book a Trip",
+										link: "/docs/activity/manage-personal-booking/book-a-trip",
+									},
+									{
+										text: "Edit Upcoming Trip's Passenger Details",
+										link: "/docs/activity/manage-personal-booking/edit-upcoming-trip's-passenger-details",
+									},
+									{
+										text: "View and Filter Personal Bookings",
+										link: "/docs/activity/manage-personal-booking/view-and-filter-personal-bookings",
+									},
+									{
+										text: "View and Pay Booking Invoice Details",
+										link: "/docs/activity/manage-personal-booking/view-and-pay-booking-invoice-details",
+									},
+								],
+							},
+							{
 								text: "View Customer Self Report",
 								collapsed: true,
 								items: [
