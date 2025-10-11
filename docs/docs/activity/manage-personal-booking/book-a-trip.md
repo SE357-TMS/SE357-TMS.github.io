@@ -4,70 +4,81 @@
 @startuml
 |C|Customer
 |S|System
-|D|Database
 
 |C|
 start
-:(1) Select trip to book;
-|S|
-:(2) Get trip details;
-|D|
-:(3) Query trip data;
-if () then (Trip not found)
+
+:(1) Select function Book a Trip;
+
+repeat
+  :(2) Select trip to book;
+
   |S|
-  :(3.1) Display error notification;
-  stop
-elseif () then (No available seats)
-  |S|
-  :(3.2) Display error notification;
-  stop
-else (Valid)
-  |S|
-  :(4) Display booking form;
-  |C|
-  :(5) Enter booking information;
-  note right
-    - Number of passengers
-    - Adult count
-    - Children count
-    - Contact information
-    - Passenger details
-  end note
-  :(6) Submit booking;
-  |S|
-  :(7) Validate booking information;
-  if () then (Invalid input)
-    |S|
-    :(7.1) Display error notification;
+  :(3) Verify trip status;
+
+  if (Verify trip exists?) then (No)
+    :(3.1) Display trip not found error;
     |C|
-    :(7.2) Correct information;
-    |S|
-    :(7.3) Revalidate;
-  else (Valid)
+  else (Yes)
+    if (Check available seats?) then (No)
+      :(3.2) Display no seats available notification;
+      |C|
+    else (Yes)
+      |S|
+      :(4) Display booking form;
+      note right
+        - Number of passengers
+        - Adult count
+        - Children count
+        - Contact information
+        - Passenger details
+      end note
+
+      repeat
+        |C|
+        :(5) Enter booking information;
+        :(6) Submit booking;
+
+        |S|
+        :(7) Verify booking information;
+        if (Verify data valid?) then (No)
+          :(7.1) Display validation error;
+        else (Yes)
+        endif
+      repeat while (Verify data valid?) is (No) not (Yes)
+
+      :(8) Verify seat availability;
+      if (Check enough seats available?) then (No)
+        :(8.1) Display insufficient seats notification;
+        |C|
+      else (Yes)
+        |S|
+        :(9) Update booking information;
+        note right
+          - Create tour booking record
+          - Create booking detail record
+          - Create booking traveler records
+          - Update trip booked seats
+          - Create invoice record
+        end note
+        :(10) Display booking success notification;
+        :(11) Notify booking confirmation via email;
+        note right
+          - Booking ID
+          - Payment deadline
+          - Booking details
+          - Payment instructions
+        end note
+
+        |C|
+        :(12) Confirm notification;
+      endif
+    endif
   endif
-  |D|
-  :(8) Validate seat availability;
-  if () then (Insufficient seats)
-    |S|
-    :(8.1) Display error notification;
-    stop
-  else (Available)
-    :(9) Create tour booking record;
-    :(10) Create booking detail record;
-    :(11) Create booking traveler records;
-    :(12) Update trip booked seats;
-    :(13) Create invoice record;
-    |S|
-    :(14) Display booking success;
-    :(15) Send booking confirmation;
-    note right
-      - Booking ID
-      - Payment deadline
-      - Booking details
-      - Payment instructions
-    end note
-  endif
-endif
+repeat while (Check want to book another trip?) is (Yes) not (No)
+
+:(13) Confirm end of use case;
+
 stop
 
 @enduml

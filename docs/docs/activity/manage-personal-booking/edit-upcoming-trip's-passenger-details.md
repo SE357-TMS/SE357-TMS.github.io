@@ -4,61 +4,69 @@
 @startuml
 |C|Customer
 |S|System
-|D|Database
 
 |C|
 start
-:(1) Select booking to edit;
-|S|
-:(2) Get booking details;
-|D|
-:(3) Query booking data;
-if () then (Booking not found)
+
+:(1) Select function Edit Passenger Details;
+
+repeat
+  :(2) Select booking to edit;
+
   |S|
-  :(3.1) Display error notification;
-  stop
-elseif () then (Trip already started)
-  |S|
-  :(3.2) Display error notification;
-  stop
-elseif () then (Booking canceled)
-  |S|
-  :(3.3) Display error notification;
-  stop
-else (Valid)
-  |S|
-  :(4) Display passenger details;
-  repeat
+  :(3) Verify booking status;
+
+  if (Verify booking exists?) then (No)
+    :(3.1) Display booking not found error;
     |C|
-    :(5) Enter new passenger details;
-    note right
-      - Full name
-      - Date of birth
-      - Gender
-      - Nationality
-      - Identity document
-    end note
-    |S|
-    :(6) Validate input data;
-  backward: (6.1) Display error notification;
-  repeat while () is (Invalid data) not (Valid data)
-  |C|
-  :(6.2) Click "Save" button to confirm;
-  |S|
-  :(7) Process update request;
-  |D|
-  :(8) Validate data;
-  if () then (Invalid data)
-    |S|
-    :(8.1) Display error notification;
-  else (Valid data)
-    |D|
-    :(8.2) Update booking traveler records;
-    |S|
-    :(9) Display success notification;
-    :(10) Send update confirmation;
+  else (Yes)
+    if (Check trip not started?) then (No)
+      :(3.2) Display trip already started error;
+      |C|
+    else (Yes)
+      if (Check booking not canceled?) then (No)
+        :(3.3) Display booking canceled error;
+        |C|
+      else (Yes)
+        |S|
+        :(4) Display passenger details form;
+        note right
+          - Full name
+          - Date of birth
+          - Gender
+          - Nationality
+          - Identity document
+        end note
+
+        repeat
+          |C|
+          :(5) Enter new passenger details;
+          :(6) Submit changes;
+
+          |S|
+          :(7) Verify input data;
+          if (Verify data valid?) then (No)
+            :(7.1) Display validation error;
+          else (Yes)
+          endif
+        repeat while (Verify data valid?) is (No) not (Yes)
+
+        :(8) Update passenger information;
+        note right
+          - Update booking traveler records
+        end note
+        :(9) Display update success notification;
+        :(10) Notify update confirmation via email;
+
+        |C|
+        :(11) Confirm notification;
+      endif
+    endif
   endif
-endif
+repeat while (Check booking valid and not started and not canceled?) is (No) not (Yes)
+
+:(12) Confirm end of use case;
+
 stop
 
 @enduml

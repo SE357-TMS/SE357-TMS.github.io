@@ -341,6 +341,20 @@ export default defineConfig({
 								],
 							},
 							{
+								text: "Browse Trips",
+								collapsed: true,
+								items: [
+									{
+										text: "View and Filter Available Trips",
+										link: "/docs/activity/browse-trips/view-and-filter-available-trips",
+									},
+									{
+										text: "View Trip Details",
+										link: "/docs/activity/browse-trips/view-trip-details",
+									},
+								],
+							},
+							{
 								text: "Contact Support",
 								collapsed: true,
 								items: [
