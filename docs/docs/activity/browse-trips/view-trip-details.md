@@ -11,13 +11,13 @@ start
 :(1) Select function View Trip Details;
 
 repeat
-  :(2) Select trip to view;
+  :(2) Select trip;
 
   |S|
   :(3) Verify trip status;
 
-  if (Verify trip exists?) then (No)
-    :(3.1) Display trip not found error;
+  if (Check trip exists?) then (No)
+    :(3.1) Display error notification;
     |C|
   else (Yes)
     |S|
@@ -31,50 +31,24 @@ repeat
       - Pick-up time & location
       - Status
       - Route attractions by day
-      - Duration
+      **Extended actions:**
+      - Book a Trip
+      - Add to Favorites
+      - Add to Cart
     end note
 
     |C|
-    :(5) Select action;
-
-    if (Check action type?) then (Book This Trip)
-      :(6) Proceed to booking;
-      note right
-        Activity: Book a Trip
-      end note
-    else (Check action type?)
-      if (Check action type?) then (Add to Favorites)
-        |S|
-        :(7) Verify favorite status;
-        if (Check already in favorites?) then (Yes)
-          :(7.1) Display already favorited notification;
-          |C|
-        else (No)
-          |S|
-          :(8) Update favorite tours;
-          note right
-            - Create favorite tour record
-          end note
-          :(9) Display add to favorites success notification;
-
-          |C|
-          :(10) Confirm notification;
-        endif
-      else (View Only)
-        |C|
-        :(11) Confirm view;
-      endif
-    endif
+    :(5) Confirm view;
   endif
-
-  |C|
 repeat while (Check want to view another trip?) is (Yes) not (No)
 
-:(12) Confirm end of use case;
+:(6) Confirm end;
 
 stop
 
 @enduml
 ```
+
+<!-- diagram id="activity-browse-trips-view-trip-details" -->
 
 <!-- diagram id="activity-browse-trips-view-trip-details" -->

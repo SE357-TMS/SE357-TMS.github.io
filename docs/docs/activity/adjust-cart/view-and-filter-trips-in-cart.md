@@ -1,4 +1,4 @@
-# Activity View and Filter Available Trips
+# Activity View and Filter Trips in Cart
 
 ```plantuml
 @startuml
@@ -8,19 +8,18 @@
 |C|
 start
 
-:(1) Select function Browse Trips;
+:(1) Select function View Cart;
 
 |S|
-:(2) Display available trips;
+:(2) Display cart items;
 
 repeat
   |C|
   :(3) Enter search criteria;
   note right
-    - Destination
+    - Trip name
     - Date range
     - Price range
-    - Available seats
   end note
   :(4) Submit search;
 
@@ -33,6 +32,11 @@ repeat
   else (Yes)
     |S|
     :(6) Display search results;
+    note right
+      **Extended actions:**
+      - Edit Trip Details
+      - Remove Trip from Cart
+    end note
 
     |C|
   endif
@@ -45,6 +49,4 @@ stop
 @enduml
 ```
 
-<!-- diagram id="activity-browse-trips-view-and-filter-available-trips" -->
-
-<!-- diagram id="activity-browse-trips-view-and-filter-available-trips" -->
+<!-- diagram id="activity-adjust-cart-view-and-filter-trips-in-cart" -->

@@ -21,7 +21,7 @@
 ## Diagrams
 
 - Sequence diagrams contains actor, boundary (view, can be more than 1), controller (like the controller in backend), entity in UPPERCASE (database level)
-- Activity diagrams contains 3 "swimlanes": actor, system, database
+- Activity diagrams contains 2 "swimlanes": actor, system.
 
 ## Steps
 
@@ -29,7 +29,7 @@ Those use cases like create, update, delete/remove is CRUD use case. With each o
 
 - Create:
   - Validate actor input (at boundary with sequence and system with activity), if there is error then send error notification back to actor
-  - Then validate at the entity (with sequence) or database (with activity)
+  - Then validate at the entity (with sequence) or system (with activity)
 - Update:
   - With sequence, it should ref to the search sequence
   - Select the entity
@@ -39,4 +39,4 @@ Those use cases like create, update, delete/remove is CRUD use case. With each o
   - With sequence, it should ref to the search sequence
   - Select the entity
   - The boundary or system will ask for confirmation, if actor click cancel button then break, else click confirm
-  - Validate data at the entity (with sequence) or database (with activity) before deleting data
+  - Validate data at the entity (with sequence) or system (with activity) before deleting data

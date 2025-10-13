@@ -447,12 +447,38 @@ export default defineConfig({
 								],
 							},
 							{
+								text: "Adjust Cart",
+								collapsed: true,
+								items: [
+									{
+										text: "Add Trip to Cart",
+										link: "/docs/activity/adjust-cart/add-trip-to-cart",
+									},
+									{
+										text: "Edit Trip Details",
+										link: "/docs/activity/adjust-cart/edit-trip-details",
+									},
+									{
+										text: "Remove Trip from Cart",
+										link: "/docs/activity/adjust-cart/remove-trip-to-cart",
+									},
+									{
+										text: "View and Filter Trips in Cart",
+										link: "/docs/activity/adjust-cart/view-and-filter-trips-in-cart",
+									},
+								],
+							},
+							{
 								text: "Manage Personal Booking",
 								collapsed: true,
 								items: [
 									{
 										text: "Book a Trip",
 										link: "/docs/activity/manage-personal-booking/book-a-trip",
+									},
+									{
+										text: "Checkout Cart",
+										link: "/docs/activity/manage-personal-booking/checkout-cart",
 									},
 									{
 										text: "Edit Upcoming Trip's Passenger Details",
