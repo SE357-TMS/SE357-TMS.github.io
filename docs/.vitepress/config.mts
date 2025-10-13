@@ -109,28 +109,6 @@ export default defineConfig({
 								],
 							},
 							{
-								text: "Manage Cart",
-								collapsed: true,
-								items: [
-									{
-										text: "Change Product Amount",
-										link: "/docs/sequence/manage-cart/change-product-amount",
-									},
-									{
-										text: "Manage Cart",
-										link: "/docs/sequence/manage-cart/manage-cart",
-									},
-									{
-										text: "Purchase",
-										link: "/docs/sequence/manage-cart/purchase",
-									},
-									{
-										text: "Remove Product From Cart",
-										link: "/docs/sequence/manage-cart/remove-product-from-cart",
-									},
-								],
-							},
-							{
 								text: "Manage Product",
 								collapsed: true,
 								items: [
@@ -361,28 +339,6 @@ export default defineConfig({
 									{
 										text: "Contact Support",
 										link: "/docs/activity/contact-support/contact-support",
-									},
-								],
-							},
-							{
-								text: "Manage Cart",
-								collapsed: true,
-								items: [
-									{
-										text: "Change Product Amount",
-										link: "/docs/activity/manage-cart/change-product-amount",
-									},
-									{
-										text: "Manage Cart",
-										link: "/docs/activity/manage-cart/manage-cart",
-									},
-									{
-										text: "Purchase",
-										link: "/docs/activity/manage-cart/purchase",
-									},
-									{
-										text: "Remove Product From Cart",
-										link: "/docs/activity/manage-cart/remove-product-from-cart",
 									},
 								],
 							},
