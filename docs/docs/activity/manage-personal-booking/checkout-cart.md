@@ -8,73 +8,95 @@
 |C|
 start
 
-:(1) Select function Checkout Cart;
+:(1) View cart with items;
+
+:(2) Click checkout cart button;
 
 |S|
-:(2) Verify cart status;
+:(3) Verify authentication status;
 
-if (Check cart has items?) then (No)
-  :(2.1) Display empty cart notification;
+if (Check user authenticated?) then (No)
+  :(3.1) Display login required notification;
+
   |C|
+  :(3.2) Perform login;
+
+  |S|
 else (Yes)
-  |S|
-  :(3) Display cart items;
-
-  |C|
-  :(4) Select cart items to checkout;
-
-  |S|
-  :(5) Display checkout form;
-  note right
-    - Selected items summary
-    - Total amount
-    - Contact information
-    - Passenger details for each trip
-  end note
-
-  repeat
-    |C|
-    :(6) Enter checkout information;
-    :(7) Submit checkout information;
-
-    |S|
-    :(8) Verify checkout information;
-    if (Check data valid?) then (No)
-      :(8.1) Display validation error;
-    else (Yes)
-    endif
-  repeat while (Check data valid?) is (No) not (Yes)
-
-  :(9) Verify selected trips availability;
-  if (Check all selected trips available?) then (No)
-    :(9.1) Display unavailable trips notification;
-    |C|
-  else (Yes)
-    |S|
-    :(10) Update booking data;
-    note right
-      - Create tour bookings for selected items
-      - Create booking details
-      - Create booking travelers
-      - Update trips booked seats
-      - Create invoices
-      - Remove selected cart items
-    end note
-    :(11) Display success notification;
-    :(12) Notify booking confirmation;
-    note right
-      - Send email with booking IDs
-      - Payment deadline
-      - Booking details
-      - Payment instructions
-    end note
-
-    |C|
-    :(13) Confirm notification;
-  endif
 endif
 
-:(14) Confirm end;
+:(4) Query cart items and trip details from database;
+
+if (Check cart has items?) then (No)
+  :(4.1) Display empty cart notification with explore tours link;
+
+  |C|
+  :(4.2) Confirm end;
+
+  stop
+else (Yes)
+endif
+
+|S|
+:(5) Verify all trips validity;
+
+if (Check all trips valid?) then (No)
+  :(5.1) Display list of invalid trips with issues;
+
+  |C|
+  :(5.2) Remove invalid trips or return to cart;
+
+  :(5.3) Confirm end;
+
+  stop
+else (Yes)
+endif
+
+|S|
+:(6) Display passenger information form for all cart items;
+
+repeat
+  |C|
+  :(7) Enter number of adults and children for each trip;
+
+  :(8) Enter traveler details for each passenger;
+
+  :(9) Click confirm all bookings button;
+
+  |S|
+  :(10) Verify passenger data for all trips;
+repeat while (Check all data valid?) is (No) not (Yes)
+
+:(11) Calculate total price for all trips;
+
+:(12) Display confirmation page with all booking details and total amount;
+
+|C|
+:(13) Confirm checkout;
+
+|S|
+:(14) Create tour bookings for each cart item in transaction;
+
+:(15) Create booking details for each booking;
+
+:(16) Create traveler records for all passengers;
+
+:(17) Update booked seats for all trips;
+
+:(18) Create invoices for all bookings;
+
+:(19) Delete all cart items;
+
+:(20) Commit transaction;
+
+:(21) Display success notification with all booking codes;
+
+:(22) Send email confirmation with all booking details;
+
+|C|
+:(23) View created bookings;
+
+:(24) Confirm end;
 
 stop
 

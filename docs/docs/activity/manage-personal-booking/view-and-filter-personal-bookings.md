@@ -8,57 +8,56 @@
 |C|
 start
 
-:(1) Select function View Personal Bookings;
+:(1) Click my bookings in menu;
+
+|S|
+:(2) Query booking list from database;
+
+if (Check customer has bookings?) then (No)
+  :(2.1) Display no bookings message with explore tours button;
+
+  |C|
+  :(2.2) Confirm end;
+
+  stop
+else (Yes)
+endif
+
+|S|
+:(3) Display bookings with three tabs;
+
+:(4) Display each booking with details and action buttons;
+
+|C|
+:(5) View booking list;
 
 repeat
-  |S|
-  :(2) Display personal bookings view;
+  if (Check want to filter?) then (Yes)
+    :(6) Click filter and select criteria;
 
-  |C|
-  :(3) Select action;
+    |S|
+    :(7) Display filter form;
 
-  if (Check action type?) then (Book a Trip)
-    :(3.1) Proceed to Book a Trip;
-    note right
-      Activity: Book a Trip
-    end note
-  else (Check action type?)
-    if (Check action type?) then (Edit Passenger Details)
-      :(3.2) Proceed to Edit Passenger Details;
-      note right
-        Activity: Edit Upcoming Trip's
-        Passenger Details
-      end note
-    else (Check action type?)
-      if (Check action type?) then (Filter Bookings)
-        :(3.3) Select filter criteria;
-        note right
-          - Status (PENDING, CONFIRMED,
-            CANCELED, COMPLETED)
-          - Date range
-          - Destination
-        end note
-        :(3.4) Submit filter;
+    |C|
+    :(8) Enter filter criteria;
 
-        |S|
-        :(3.5) Verify filter criteria;
-        :(3.6) Display filtered booking results;
+    :(9) Click apply button;
 
-        |C|
-      else (View Invoice Details)
-        :(3.7) Proceed to View Invoice Details;
-        note right
-          Activity: View and Pay
-          Booking Invoice Details
-        end note
-      endif
+    |S|
+    :(10) Query bookings with filter conditions;
+
+    if (Check has matching results?) then (No)
+      :(10.1) Display no matching bookings message;
+    else (Yes)
+      :(11) Display filtered booking list;
     endif
+
+    |C|
+  else (No)
   endif
+repeat while (Check want to continue filtering?) is (Yes) not (No)
 
-  |C|
-repeat while (Check want to continue?) is (Yes) not (No)
-
-:(4) Confirm end of use case;
+:(12) Confirm end;
 
 stop
 

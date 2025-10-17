@@ -311,6 +311,42 @@ export default defineConfig({
 								],
 							},
 							{
+								text: "Adjust Cart",
+								collapsed: true,
+								items: [
+									{
+										text: "Add Trip to Cart",
+										link: "/docs/activity/adjust-cart/add-trip-to-cart",
+									},
+									{
+										text: "Edit Trip Details",
+										link: "/docs/activity/adjust-cart/edit-trip-details",
+									},
+									{
+										text: "Remove Trip from Cart",
+										link: "/docs/activity/adjust-cart/remove-trip-to-cart",
+									},
+									{
+										text: "View and Filter Trips in Cart",
+										link: "/docs/activity/adjust-cart/view-and-filter-trips-in-cart",
+									},
+								],
+							},
+							{
+								text: "Adjust Favorite Trips",
+								collapsed: true,
+								items: [
+									{
+										text: "Toggle Favorite Trip",
+										link: "/docs/activity/adjust-favorite-trips/toggle-favorite-trip",
+									},
+									{
+										text: "View and Filter Favorite Trips",
+										link: "/docs/activity/adjust-favorite-trips/view-and-filter-favorite-trips",
+									},
+								],
+							},
+							{
 								text: "Auth",
 								collapsed: true,
 								items: [
@@ -339,6 +375,36 @@ export default defineConfig({
 									{
 										text: "Contact Support",
 										link: "/docs/activity/contact-support/contact-support",
+									},
+								],
+							},
+							{
+								text: "Manage Personal Booking",
+								collapsed: true,
+								items: [
+									{
+										text: "Book a Trip",
+										link: "/docs/activity/manage-personal-booking/book-a-trip",
+									},
+									{
+										text: "Checkout Cart",
+										link: "/docs/activity/manage-personal-booking/checkout-cart",
+									},
+									{
+										text: "Edit Upcoming Trip's Passenger Details",
+										link: "/docs/activity/manage-personal-booking/edit-upcoming-trip's-passenger-details",
+									},
+									{
+										text: "View and Filter Personal Bookings",
+										link: "/docs/activity/manage-personal-booking/view-and-filter-personal-bookings",
+									},
+									{
+										text: "View and Pay Booking Invoice Details",
+										link: "/docs/activity/manage-personal-booking/view-and-pay-booking-invoice-details",
+									},
+									{
+										text: "Use Case Specification",
+										link: "/docs/activity/manage-personal-booking/đặc tả các use case",
 									},
 								],
 							},
@@ -373,6 +439,32 @@ export default defineConfig({
 								],
 							},
 							{
+								text: "Manage Routes",
+								collapsed: true,
+								items: [
+									{
+										text: "Add New Route",
+										link: "/docs/activity/manage-routes/add-new-route",
+									},
+									{
+										text: "Delete Route",
+										link: "/docs/activity/manage-routes/delete-route",
+									},
+									{
+										text: "Edit Route Details",
+										link: "/docs/activity/manage-routes/edit-route-details",
+									},
+									{
+										text: "View and Filter Routes",
+										link: "/docs/activity/manage-routes/view-and-filter-routes",
+									},
+									{
+										text: "View Route Detail",
+										link: "/docs/activity/manage-routes/view-route-detail",
+									},
+								],
+							},
+							{
 								text: "Manage User",
 								collapsed: true,
 								items: [
@@ -399,54 +491,6 @@ export default defineConfig({
 									{
 										text: "View Staff Report",
 										link: "/docs/activity/manage-user/view-staff-report",
-									},
-								],
-							},
-							{
-								text: "Adjust Cart",
-								collapsed: true,
-								items: [
-									{
-										text: "Add Trip to Cart",
-										link: "/docs/activity/adjust-cart/add-trip-to-cart",
-									},
-									{
-										text: "Edit Trip Details",
-										link: "/docs/activity/adjust-cart/edit-trip-details",
-									},
-									{
-										text: "Remove Trip from Cart",
-										link: "/docs/activity/adjust-cart/remove-trip-to-cart",
-									},
-									{
-										text: "View and Filter Trips in Cart",
-										link: "/docs/activity/adjust-cart/view-and-filter-trips-in-cart",
-									},
-								],
-							},
-							{
-								text: "Manage Personal Booking",
-								collapsed: true,
-								items: [
-									{
-										text: "Book a Trip",
-										link: "/docs/activity/manage-personal-booking/book-a-trip",
-									},
-									{
-										text: "Checkout Cart",
-										link: "/docs/activity/manage-personal-booking/checkout-cart",
-									},
-									{
-										text: "Edit Upcoming Trip's Passenger Details",
-										link: "/docs/activity/manage-personal-booking/edit-upcoming-trip's-passenger-details",
-									},
-									{
-										text: "View and Filter Personal Bookings",
-										link: "/docs/activity/manage-personal-booking/view-and-filter-personal-bookings",
-									},
-									{
-										text: "View and Pay Booking Invoice Details",
-										link: "/docs/activity/manage-personal-booking/view-and-pay-booking-invoice-details",
 									},
 								],
 							},

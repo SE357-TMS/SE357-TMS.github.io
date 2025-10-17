@@ -14,3 +14,4 @@
   For example, if the system displays a success message, the customer confirms the success, or simply confirms the end (instead of confirming the end of the use case), and then the end node follows.
 - There must be only one start node and one end node; therefore, if any exceptions occur, they should be represented as a repeat - repeat while loop.
 - The folder which only has 1 file in that folder, same filename as the folder is a special activity. It isn't generic use case, but a single use case.
+- Do not use notes. Nodes should have more explicit content.

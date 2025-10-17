@@ -8,91 +8,83 @@
 |C|
 start
 
-:(1) Select function View Invoice Details;
+:(1) Click view details on a booking;
 
-repeat
-  :(2) Select booking to view invoice;
+|S|
+:(2) Query booking information from database;
+
+if (Check booking exists and belongs to customer?) then (No)
+  :(2.1) Display booking not found or access denied message;
+
+  |C|
+  :(2.2) Confirm end;
+
+  stop
+else (Yes)
+endif
+
+|S|
+:(3) Query invoice from database;
+
+:(4) Display booking details with invoice information;
+
+|C|
+:(5) View information;
+
+:(6) Click payment button;
+
+|S|
+:(7) Verify invoice payment status and booking conditions;
+
+if (Check invoice payable?) then (No)
+  :(7.1) Display already paid or cannot pay message;
+
+  |C|
+  :(7.2) Confirm end;
+
+  stop
+else (Yes)
+endif
+
+|S|
+:(8) Display payment page with available payment methods;
+
+|C|
+:(9) Select payment method;
+
+:(10) Enter payment information if needed;
+
+:(11) Confirm payment;
+
+|S|
+:(12) Process payment through payment gateway;
+
+:(13) Receive payment result;
+
+if (Check payment successful?) then (No)
+  :(13.1) Display payment failed notification;
+
+  |C|
+  :(13.2) Retry or select different method;
 
   |S|
-  :(3) Verify booking status;
+else (Yes)
+endif
 
-  if (Verify booking exists?) then (No)
-    :(3.1) Display booking not found error;
-    |C|
-  else (Yes)
-    |S|
-    :(4) Display invoice details;
-    note right
-      - Invoice ID
-      - Booking ID
-      - Total amount
-      - Payment status
-      - Payment method
-      - Booking details
-      - Trip information
-    end note
+:(14) Update invoice payment status in transaction;
 
-    |C|
-    :(5) Select action;
+:(15) Update booking status to confirmed;
 
-    if (Check action type?) then (Pay Invoice)
-      if (Check payment status?) then (Already Paid)
-        |S|
-        :(5.1) Display already paid notification;
-        |C|
-      else (Unpaid)
-        |C|
-        :(6) Select payment method;
-        note right
-          - Credit/Debit Card
-          - Bank Transfer
-          - E-Wallet
-        end note
+:(16) Commit transaction;
 
-        repeat
-          :(7) Enter payment information;
-          :(8) Submit payment;
+:(17) Display success notification;
 
-          |S|
-          :(9) Verify payment information;
-          if (Verify payment valid?) then (No)
-            :(9.1) Display payment validation error;
-          else (Yes)
-          endif
-        repeat while (Verify payment valid?) is (No) not (Yes)
+:(18) Send email with payment confirmation and e-ticket;
 
-        :(10) Verify payment processing;
-        if (Check payment successful?) then (No)
-          :(10.1) Display payment failed notification;
-          |C|
-        else (Yes)
-          |S|
-          :(11) Update invoice payment status;
-          note right
-            - Update payment_status to PAID
-            - Update payment_method
-            - Update booking status to CONFIRMED
-          end note
-          :(12) Display payment success notification;
-          :(13) Notify payment confirmation via email;
-          note right
-            - Payment receipt
-            - Booking confirmation
-            - Trip details
-          end note
+|C|
+:(19) View success message;
 
-          |C|
-          :(14) Confirm notification;
-        endif
-      endif
-    else (View Only)
-      |C|
-      :(15) Confirm view;
-    endif
-  endif
-repeat while (Check want to view another invoice?) is (Yes) not (No)
-
-:(16) Confirm end of use case;
+:(20) Confirm end;
 
 stop
 

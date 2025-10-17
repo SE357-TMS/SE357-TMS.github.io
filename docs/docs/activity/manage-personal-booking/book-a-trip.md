@@ -8,71 +8,56 @@
 |C|
 start
 
-:(1) Select function Book a Trip;
+:(1) View trip details;
+:(2) Click book now button;
 
-repeat
-  :(2) Select trip;
+|S|
+:(3) Verify authentication status;
+
+if (Check user authenticated?) then (No)
+  :(3.1) Display login required notification;
+
+  |C|
+  :(3.2) Perform login;
 
   |S|
-  :(3) Verify trip status;
+else (Yes)
+endif
 
-  if (Check trip exists and has available seats?) then (No)
-    :(3.1) Display error notification;
+:(4) Display booking form;
+
+repeat
+  |C|
+  :(5) Enter number of adults and children;
+  :(6) Enter passenger information;
+  :(7) Submit booking information;
+
+  |S|
+  :(8) Verify booking data;
+
+  if (Check data valid?) then (No)
+    :(8.1) Display validation error;
     |C|
   else (Yes)
     |S|
-    :(4) Display booking form;
-    note right
-      - Number of passengers
-      - Adult count
-      - Children count
-      - Contact information
-      - Passenger details
-    end note
+    :(9) Verify seat availability;
 
-    repeat
-      |C|
-      :(5) Enter booking information;
-      :(6) Submit booking information;
-
-      |S|
-      :(7) Verify booking information;
-      if (Check data valid?) then (No)
-        :(7.1) Display validation error;
-      else (Yes)
-      endif
-    repeat while (Check data valid?) is (No) not (Yes)
-
-    :(8) Verify seat availability;
-    if (Check enough seats?) then (No)
-      :(8.1) Display insufficient seats notification;
+    if (Check enough seats available?) then (No)
+      :(9.1) Display insufficient seats notification;
       |C|
     else (Yes)
       |S|
-      :(9) Update booking data;
-      note right
-        - Create tour booking record
-        - Create booking detail record
-        - Create booking traveler records
-        - Update trip booked seats
-        - Create invoice record
-      end note
-      :(10) Display success notification;
-      :(11) Notify booking confirmation;
-      note right
-        - Send email with booking ID
-        - Payment deadline
-        - Booking details
-        - Payment instructions
-      end note
+      :(10) Calculate total price;
+      :(11) Update booking data;
+      :(12) Display success notification;
+      :(13) Notify booking confirmation via email;
 
       |C|
-      :(12) Confirm notification;
     endif
   endif
-repeat while (Check want to book another trip?) is (Yes) not (No)
+repeat while (Check data valid and seats available?) is (No) not (Yes)
 
-:(13) Confirm end;
+:(14) Confirm end;
 
 stop
 
